@@ -170,7 +170,7 @@ public class MyServletChatListenerAnnotated implements ServletContextListener {
 
 Inside your grails applications scripts folder place this _Events.groovy, it dynamically sets up both your listeners i.e. appends them to your web.xml as it builds the war file...
 
-[_Events.groovy](https://raw.githubusercontent.com/vahidhedayati/grails-websocket-example/master/scripts/_Events.groovy)
+[scripts/_Events.groovy](https://raw.githubusercontent.com/vahidhedayati/grails-websocket-example/master/scripts/_Events.groovy)
 ```groovy
 import groovy.xml.StreamingMarkupBuilder
 
