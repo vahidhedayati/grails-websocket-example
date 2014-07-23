@@ -202,4 +202,7 @@
   <listener>
     <listener-class>grails.websocket.example.MyServletContextListenerAnnotated</listener-class>
   </listener>
+  <listener>
+    <listener-class>grails.websocket.example.MyServletChatListenerAnnotated</listener-class>
+  </listener>
 </web-app>

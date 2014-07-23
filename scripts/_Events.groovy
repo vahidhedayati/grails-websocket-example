@@ -11,7 +11,13 @@ eventWebXmlEnd = {String tmpfile ->
 		   )
         }
     }
-
+	root.appendNode {
+		'listener' {
+			'listener-class' (
+				'grails.websocket.example.MyServletChatListenerAnnotated'
+			)
+		 }
+	 }
     webXmlFile.text = new StreamingMarkupBuilder().bind {
         mkp.declareNamespace(
                 "": "http://java.sun.com/xml/ns/javaee")
