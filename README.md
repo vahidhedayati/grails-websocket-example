@@ -11,3 +11,6 @@ I have ported over the concept into Grails and it does appear to be working fine
 Besides this everything else is as was on the tutorial 
 
 I will also add the chat example into this so its the complete example as per instructions but now working under Grails :)
+
+
+### Please note  this is using Grails 2.3.7 with Java 1.7 - no additional libraries was required - Glasshfish etc not installed into grails.
