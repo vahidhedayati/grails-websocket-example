@@ -10,6 +10,15 @@ Grails 2.3.7 and JDK 1.7
 
 To recreate the project or where to go looking to see what has changed from a vanilla grails built application...
 
+Please note : The javax.websocket is being provided by tomcat within BuildConfig.groovy:
+
+```
+
+build ":tomcat:7.0.52.1"
+```
+
+
+
 
 So set up a new app :
 ```
