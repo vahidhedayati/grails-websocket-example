@@ -12,11 +12,16 @@ To recreate the project or where to go looking to see what has changed from a va
 
 Please note : The javax.websocket is being provided by tomcat within BuildConfig.groovy:
 
+
 ```
 
 build ":tomcat:7.0.52.1"
 ```
 
+
+# Working chatroom as a plugin:
+
+Please check out http://grails.org/plugin/wschat
 
 
 
