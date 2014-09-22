@@ -23,17 +23,21 @@ public class MyServletChatListenerAnnotated implements ServletContextListener {
 
 	static Set<Session> chatroomUsers = Collections.synchronizedSet(new HashSet<Session>())
 	
-    @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        final ServerContainer serverContainer = (ServerContainer) servletContextEvent.getServletContext()
-                                                    .getAttribute("javax.websocket.server.ServerContainer")
 
-        try {
-            serverContainer.addEndpoint(MyServletChatListenerAnnotated.class)
-        } catch (DeploymentException e) {
-            e.printStackTrace()
-        }
-    }
+	@Override
+	public void contextInitialized(ServletContextEvent servletContextEvent) {
+		final ServerContainer serverContainer =	org.codehaus.groovy.grails.web.context.ServletContextHolder.getServletContext().getAttribute("javax.websocket.server.ServerContainer")
+		try {
+			serverContainer?.addEndpoint(MyServletChatListenerAnnotated.class)
+			// Keep chat sessions open for ever
+			def config=Holders.config
+			int DefaultMaxSessionIdleTimeout=config.wschat.timeout  ?: 0
+			serverContainer.setDefaultMaxSessionIdleTimeout(DefaultMaxSessionIdleTimeout as int)
+		} catch (DeploymentException e) {
+			e.printStackTrace()
+		}
+	}
+
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
