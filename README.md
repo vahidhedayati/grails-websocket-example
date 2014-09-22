@@ -12,6 +12,7 @@ To recreate the project or where to go looking to see what has changed from a va
 
 Please note : The javax.websocket is being provided by tomcat within BuildConfig.groovy:
 
+Please refer to grails-wschat-plugin within my project list for a more detailed version of this basic project. It includes interaction with backend DB as well as dynamic rooms.
 
 ```
 
@@ -61,17 +62,20 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/annotated")
 public class MyServletContextListenerAnnotated implements ServletContextListener {
 
-    @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        final ServerContainer serverContainer = (ServerContainer) servletContextEvent.getServletContext()
-                                                    .getAttribute("javax.websocket.server.ServerContainer")
+	@Override
+	public void contextInitialized(ServletContextEvent servletContextEvent) {
+		final ServerContainer serverContainer =	org.codehaus.groovy.grails.web.context.ServletContextHolder.getServletContext().getAttribute("javax.websocket.server.ServerContainer")
+		try {
+			serverContainer?.addEndpoint(WsChatEndpoint.class)
+			// Keep chat sessions open for ever
+			def config=Holders.config
+			int DefaultMaxSessionIdleTimeout=config.wschat.timeout  ?: 0
+			serverContainer.setDefaultMaxSessionIdleTimeout(DefaultMaxSessionIdleTimeout as int)
+		} catch (DeploymentException e) {
+			e.printStackTrace()
+		}
+	}
 
-        try {
-            serverContainer.addEndpoint(MyServletContextListenerAnnotated.class)
-        } catch (DeploymentException e) {
-            e.printStackTrace()
-        }
-    }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
