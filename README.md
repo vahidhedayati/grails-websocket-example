@@ -19,6 +19,17 @@ Please refer to [grails-wschat-plugin](https://github.com/vahidhedayati/grails-w
 build ":tomcat:7.0.52.1"
 ```
 
+In order to get this app to work in production (Running in tomcat an additional dependency is required within dependencies of your BuildConfig usually found above plugins :
+```
+dependencies {
+  build ('javax.websocket:javax.websocket-api:1.0') { export = false }
+}
+```
+
+Take a look at the wschat BuildConfig.groovy to see it used.
+
+
+
 
 # Working chatroom as a plugin:
 
