@@ -12,7 +12,7 @@ To recreate the project or where to go looking to see what has changed from a va
 
 Please note : The javax.websocket is being provided by tomcat within BuildConfig.groovy:
 
-Please refer to grails-wschat-plugin within my project list for a more detailed version of this basic project. It includes interaction with backend DB as well as dynamic rooms.
+Please refer to [grails-wschat-plugin](https://github.com/vahidhedayati/grails-wschat-plugin) within my project list for a more detailed version of this basic project. It includes interaction with backend DB as well as dynamic rooms.
 
 ```
 
@@ -22,7 +22,7 @@ build ":tomcat:7.0.52.1"
 
 # Working chatroom as a plugin:
 
-Please check out http://grails.org/plugin/wschat
+Please check out [wschat](http://grails.org/plugin/wschat)
 
 
 
