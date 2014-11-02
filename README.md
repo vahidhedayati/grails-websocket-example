@@ -57,36 +57,50 @@ This is the Java class converted to Groovy. It is your end point that when user 
 ```groovy
 package grails.websocket.example
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
-import javax.websocket.DeploymentException;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.server.ServerContainer;
-import javax.websocket.server.ServerEndpoint;
+
+import javax.servlet.ServletContext
+import javax.servlet.ServletContextEvent
+import javax.servlet.ServletContextListener
+import javax.servlet.annotation.WebListener
+import javax.websocket.OnClose
+import javax.websocket.OnError
+import javax.websocket.OnMessage
+import javax.websocket.OnOpen
+import javax.websocket.server.ServerContainer
+import javax.websocket.server.ServerEndpoint
+
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes as GA
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 
 
 @WebListener
 @ServerEndpoint("/annotated")
 public class MyServletContextListenerAnnotated implements ServletContextListener {
-
-	@Override
-	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		final ServerContainer serverContainer =	org.codehaus.groovy.grails.web.context.ServletContextHolder.getServletContext().getAttribute("javax.websocket.server.ServerContainer")
+	
+	private final Logger log = LoggerFactory.getLogger(getClass().name)
+	
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+		ServletContext servletContext = event.servletContext
+		final ServerContainer serverContainer = servletContext.getAttribute("javax.websocket.server.ServerContainer")
 		try {
-			serverContainer?.addEndpoint(MyServletContextListenerAnnotated.class)
-			// Keep chat sessions open for ever
-			def config=Holders.config
-			int DefaultMaxSessionIdleTimeout=config.wschat.timeout  ?: 0
-			serverContainer.setDefaultMaxSessionIdleTimeout(DefaultMaxSessionIdleTimeout as int)
-		} catch (DeploymentException e) {
-			e.printStackTrace()
+			serverContainer.addEndpoint(MyServletContextListenerAnnotated)
+
+			def ctx = servletContext.getAttribute(GA.APPLICATION_CONTEXT)
+
+			def grailsApplication = ctx.grailsApplication
+
+			def config = grailsApplication.config
+			int defaultMaxSessionIdleTimeout = config.myservletcontext.timeout ?: 0
+			serverContainer.defaultMaxSessionIdleTimeout = defaultMaxSessionIdleTimeout
+		}
+		catch (IOException e) {
+			log.error e.message, e
 		}
 	}
-
+	
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
@@ -125,10 +139,10 @@ package grails.websocket.example
 import grails.converters.JSON
 import grails.web.JSONBuilder
 
+import javax.servlet.ServletContext
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
 import javax.servlet.annotation.WebListener
-import javax.websocket.DeploymentException
 import javax.websocket.OnClose
 import javax.websocket.OnError
 import javax.websocket.OnMessage
@@ -137,25 +151,40 @@ import javax.websocket.Session
 import javax.websocket.server.ServerContainer
 import javax.websocket.server.ServerEndpoint
 
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes as GA
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 
 @WebListener
 @ServerEndpoint("/chatroomServerEndpoint")
 public class MyServletChatListenerAnnotated implements ServletContextListener {
-
-	static Set<Session> chatroomUsers = Collections.synchronizedSet(new HashSet<Session>())
 	
-    @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        final ServerContainer serverContainer = (ServerContainer) servletContextEvent.getServletContext()
-                                                    .getAttribute("javax.websocket.server.ServerContainer")
+	private final Logger log = LoggerFactory.getLogger(getClass().name)
+	
+	static final Set<Session> chatroomUsers = ([] as Set).asSynchronized()
 
-        try {
-            serverContainer.addEndpoint(MyServletChatListenerAnnotated.class)
-        } catch (DeploymentException e) {
-            e.printStackTrace()
-        }
-    }
+	@Override
+	public void contextInitialized(ServletContextEvent event) {
+		ServletContext servletContext = event.servletContext
+		final ServerContainer serverContainer = servletContext.getAttribute("javax.websocket.server.ServerContainer")
+		try {
+			serverContainer.addEndpoint(MyServletChatListenerAnnotated)
+
+			def ctx = servletContext.getAttribute(GA.APPLICATION_CONTEXT)
+
+			def grailsApplication = ctx.grailsApplication
+
+			def config = grailsApplication.config
+			int defaultMaxSessionIdleTimeout = config.myservlet.timeout ?: 0
+			serverContainer.defaultMaxSessionIdleTimeout = defaultMaxSessionIdleTimeout
+		}
+		catch (IOException e) {
+			log.error e.message, e
+		}
+	}
+	
+
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {

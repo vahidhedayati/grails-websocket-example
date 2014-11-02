@@ -1,32 +1,48 @@
 package grails.websocket.example
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
-import javax.websocket.DeploymentException;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.server.ServerContainer;
-import javax.websocket.server.ServerEndpoint;
+import javax.servlet.ServletContext
+import javax.servlet.ServletContextEvent
+import javax.servlet.ServletContextListener
+import javax.servlet.annotation.WebListener
+import javax.websocket.OnClose
+import javax.websocket.OnError
+import javax.websocket.OnMessage
+import javax.websocket.OnOpen
+import javax.websocket.server.ServerContainer
+import javax.websocket.server.ServerEndpoint
+
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes as GA
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 
 
 @WebListener
 @ServerEndpoint("/annotated")
 public class MyServletContextListenerAnnotated implements ServletContextListener {
-
+	
+	private final Logger log = LoggerFactory.getLogger(getClass().name)
+	
     @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        final ServerContainer serverContainer = (ServerContainer) servletContextEvent.getServletContext()
-                                                    .getAttribute("javax.websocket.server.ServerContainer")
+    public void contextInitialized(ServletContextEvent event) {
+		ServletContext servletContext = event.servletContext
+		final ServerContainer serverContainer = servletContext.getAttribute("javax.websocket.server.ServerContainer")
+		try {
+			serverContainer.addEndpoint(MyServletContextListenerAnnotated)
 
-        try {
-            serverContainer.addEndpoint(MyServletContextListenerAnnotated.class)
-        } catch (DeploymentException e) {
-            e.printStackTrace()
-        }
-    }
+			def ctx = servletContext.getAttribute(GA.APPLICATION_CONTEXT)
+
+			def grailsApplication = ctx.grailsApplication
+
+			def config = grailsApplication.config
+			int defaultMaxSessionIdleTimeout = config.myservletcontext.timeout ?: 0
+			serverContainer.defaultMaxSessionIdleTimeout = defaultMaxSessionIdleTimeout
+		}
+		catch (IOException e) {
+			log.error e.message, e
+		}
+	}
+	
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {

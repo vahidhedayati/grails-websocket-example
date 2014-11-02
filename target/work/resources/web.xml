@@ -13,30 +13,6 @@
     <param-value>Sample Value</param-value>
   </context-param>
   <filter>
-    <filter-name>sitemesh</filter-name>
-    <filter-class>org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter</filter-class>
-    <async-supported>true</async-supported>
-  </filter>
-  <filter>
-    <filter-name>DeclaredResourcesPluginFilter</filter-name>
-    <filter-class>org.grails.plugin.resource.ProcessingFilter</filter-class>
-    <async-supported>true</async-supported>
-  </filter>
-  <filter>
-    <filter-name>AdHocResourcesPluginFilter</filter-name>
-    <filter-class>org.grails.plugin.resource.ProcessingFilter</filter-class>
-    <async-supported>true</async-supported>
-    <init-param>
-      <param-name>adhoc</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-  <filter>
-    <filter-name>ResourcesDevModeFilter</filter-name>
-    <filter-class>org.grails.plugin.resource.DevModeSanityFilter</filter-class>
-    <async-supported>true</async-supported>
-  </filter>
-  <filter>
     <filter-name>charEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     <async-supported>true</async-supported>
@@ -48,6 +24,11 @@
       <param-name>targetFilterLifecycle</param-name>
       <param-value>true</param-value>
     </init-param>
+  </filter>
+  <filter>
+    <filter-name>AssetPipelineFilter</filter-name>
+    <filter-class>asset.pipeline.AssetPipelineFilter</filter-class>
+    <async-supported>true</async-supported>
   </filter>
   <filter>
     <filter-name>urlMapping</filter-name>
@@ -78,46 +59,20 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>DeclaredResourcesPluginFilter</filter-name>
-    <url-pattern>/static/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>AdHocResourcesPluginFilter</filter-name>
-    <url-pattern>/images/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>AdHocResourcesPluginFilter</filter-name>
-    <url-pattern>/css/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>AdHocResourcesPluginFilter</filter-name>
-    <url-pattern>/js/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>AdHocResourcesPluginFilter</filter-name>
-    <url-pattern>/plugins/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
     <filter-name>hiddenHttpMethod</filter-name>
     <url-pattern>/*</url-pattern>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
   <filter-mapping>
+    <filter-name>AssetPipelineFilter</filter-name>
+    <url-pattern>/assets/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
     <filter-name>grailsWebRequest</filter-name>
     <url-pattern>/*</url-pattern>
     <dispatcher>FORWARD</dispatcher>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>ResourcesDevModeFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>sitemesh</filter-name>
-    <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>ERROR</dispatcher>
   </filter-mapping>
