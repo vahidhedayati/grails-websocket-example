@@ -424,6 +424,6 @@ http://localhost:8080/grails-websocket-example/test/chat - will give access to w
 
 Please check out this as well : video https://www.youtube.com/watch?v=8QBdUcFqRkU 
 
-### Please note  this is using Grails 2.3.7 with Java 1.7 - no additional libraries was required - Glasshfish etc not installed into grails.
+### Please note  this is using Grails 2.4.2 with Java 1.7 - no additional libraries was required - Glasshfish etc not installed into grails.
 
 
