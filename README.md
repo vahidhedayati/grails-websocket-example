@@ -259,6 +259,25 @@ eventWebXmlEnd = {String tmpfile ->
 
 ```
 
+1.4 Registering your end point from within a plugin:
+
+Refer to the wschat plugin link above and goto the Plugin descriptor file which has this block:
+
+```groovy
+def doWithWebDescriptor = { xml ->
+		def listenerNode = xml.'listener'
+		listenerNode[listenerNode.size() - 1] + {
+			'listener' {
+				'listener-class'(WsChatEndpoint.name)
+			}
+			'listener' {
+				'listener-class'(WsCamEndpoint.name)
+			}
+	
+		}
+	}
+```
+	
 
 
 2. Setting up your controller + views to access both 
