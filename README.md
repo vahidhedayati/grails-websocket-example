@@ -5,12 +5,14 @@ This project is based on the example :
 [Tutorial 01 - Java Server + JavaScript Client + GlassFish 4.0 + JDK 1.7](http://www.youtube.com/watch?v=_Fi4vz6oUio) + [WebSocket Tutorial 02 (Simple chatroom web app. - Java ServerEndpoint + JavaScript Client)](https://www.youtube.com/watch?v=BikL52HYaZg)
 
 
-#### Complete chat room product : [grails-wschat-plugin](https://github.com/vahidhedayati/grails-wschat-plugin) 
+### Complete chat room product : [grails wschat plugin](http://grails.org/plugin/wschat) 
 This original understanding was used to build a more advanced websocket chatroom plugin with multi room, admin user, popup (jquer-ui) private messaging, banning, kicking, blocking, popup (jquer-ui) webcam to multi users in a room and finally popup (jquer-ui) WebRTC (HD Audio/Video) between two people in a room. 
+
+### Creating a basic chat echo system
 
 In this project the above videos have been ported over to a Grails application running :
 
-Grails 2.3.7 and JDK 1.7 
+Grails 2.4.2 and JDK 1.7 
 
 To recreate the project or where to go looking to see what has changed from a vanilla grails built application...
 
