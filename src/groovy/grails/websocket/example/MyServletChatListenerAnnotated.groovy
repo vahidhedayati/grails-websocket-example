@@ -1,6 +1,7 @@
 package grails.websocket.example
 
 import grails.converters.JSON
+import grails.util.Environment
 import grails.web.JSONBuilder
 
 import javax.servlet.ServletContext
@@ -33,7 +34,9 @@ public class MyServletChatListenerAnnotated implements ServletContextListener {
 		ServletContext servletContext = event.servletContext
 		final ServerContainer serverContainer = servletContext.getAttribute("javax.websocket.server.ServerContainer")
 		try {
-			serverContainer.addEndpoint(MyServletChatListenerAnnotated)
+			if (Environment.current == Environment.DEVELOPMENT) {
+				serverContainer.addEndpoint(MyServletChatListenerAnnotated)				
+			}
 
 			def ctx = servletContext.getAttribute(GA.APPLICATION_CONTEXT)
 
