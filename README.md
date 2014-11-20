@@ -30,13 +30,6 @@ Take a look at the wschat BuildConfig.groovy to see it used.
 
 
 
-
-# Working chatroom as a plugin:
-
-Please check out [wschat](http://grails.org/plugin/wschat)
-
-
-
 So set up a new app :
 ```
 grails create-app grails-websocket-example
@@ -57,7 +50,7 @@ This is the Java class converted to Groovy. It is your end point that when user 
 ```groovy
 package grails.websocket.example
 
-
+import grails.util.Environment
 import javax.servlet.ServletContext
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
@@ -86,7 +79,9 @@ public class MyServletContextListenerAnnotated implements ServletContextListener
 		ServletContext servletContext = event.servletContext
 		final ServerContainer serverContainer = servletContext.getAttribute("javax.websocket.server.ServerContainer")
 		try {
-			serverContainer.addEndpoint(MyServletContextListenerAnnotated)
+			if (Environment.current == Environment.DEVELOPMENT) {
+				serverContainer.addEndpoint(MyServletContextListenerAnnotated)
+			}	
 
 			def ctx = servletContext.getAttribute(GA.APPLICATION_CONTEXT)
 
@@ -138,7 +133,7 @@ package grails.websocket.example
 
 import grails.converters.JSON
 import grails.web.JSONBuilder
-
+import grails.util.Environment
 import javax.servlet.ServletContext
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
@@ -169,7 +164,10 @@ public class MyServletChatListenerAnnotated implements ServletContextListener {
 		ServletContext servletContext = event.servletContext
 		final ServerContainer serverContainer = servletContext.getAttribute("javax.websocket.server.ServerContainer")
 		try {
-			serverContainer.addEndpoint(MyServletChatListenerAnnotated)
+		
+			if (Environment.current == Environment.DEVELOPMENT) {
+				serverContainer.addEndpoint(MyServletChatListenerAnnotated)				
+			}
 
 			def ctx = servletContext.getAttribute(GA.APPLICATION_CONTEXT)
 
