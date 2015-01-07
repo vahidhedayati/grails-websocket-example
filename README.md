@@ -8,6 +8,17 @@ This project is based on the example :
 ### Complete chat room product : [grails wschat plugin](http://grails.org/plugin/wschat) 
 This original understanding was used to build a more advanced websocket chatroom plugin with multi room, admin user, popup (jquer-ui) private messaging, banning, kicking, blocking, popup (jquer-ui) webcam to multi users in a room and finally popup (jquer-ui) WebRTC (HD Audio/Video) between two people in a room. 
 
+
+### Websocket Plugins under Grails 
+[Websockets + SSH : used for live SSH Interaction](https://github.com/vahidhedayati/jssh)
+
+[Websockets + HTTPBuilder: Parse Jenkins HTTP FrontEnd + push websocket feedback to Other Actions](https://github.com/vahidhedayati/grails-jenkins-plugin)
+
+[Websockets + Chat + Websockets Chat client which could be used for automation ](https://github.com/vahidhedayati/grails-wschat-plugin)
+
+[Websockets + Websockets Client used to query Grails domainClasses and produce select box through websockets client/server model = secure dynamic lookup ](https://github.com/vahidhedayati/grails-boselecta-plugin)
+
+
 ### Creating a basic chat echo system
 
 In this project the above videos have been ported over to a Grails application running :
