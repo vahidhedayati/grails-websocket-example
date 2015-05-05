@@ -19,6 +19,10 @@ This original understanding was used to build a more advanced websocket chatroom
 [Websockets + Websockets Client used to query Grails domainClasses and produce select box through websockets client/server model = secure dynamic lookup ](https://github.com/vahidhedayati/grails-boselecta-plugin)
 
 
+### Default Websockets with grails 3 and spring boot:
+[testwebsocket-grails3](https://github.com/vahidhedayati/testwebsocket-grails3) This project has a brief explaination on how to configure a grails 3 application to interact with default websockets.
+
+
 ### Creating a basic chat echo system
 
 In this project the above videos have been ported over to a Grails application running :
